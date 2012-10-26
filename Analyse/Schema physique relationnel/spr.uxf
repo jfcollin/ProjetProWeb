@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>420</x>
+      <y>140</y>
+      <w>120</w>
+      <h>190</h>
+    </coordinates>
+    <panel_attributes>Membre
+--
+#IDMembre
+Prenom
+Nom
+NomUtilisateur
+MotPasse
+Ville
+CodePostal
+Courriel
+Admin</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>710</x>
+      <y>160</y>
+      <w>170</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Commande
+--
+#IDCommande
+_IDMembre_
+CoutTotal
+TPS
+TVQ</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>720</x>
+      <y>440</y>
+      <w>150</w>
+      <h>110</h>
+    </coordinates>
+    <panel_attributes>Ligne
+--
+#IDLigne
+_IDCommande_
+_IDBiere_
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>400</x>
+      <y>440</y>
+      <w>180</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Biere
+--
+#IDBiere
+NomBiere
+NombreCaisse
+Format
+NombreParCaisse
+Prix</panel_attributes>
+    <additional_attributes/>
+  </element>
+</diagram>

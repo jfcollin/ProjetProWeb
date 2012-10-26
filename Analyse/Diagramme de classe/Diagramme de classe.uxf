@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<diagram program="umlet" version="11.5.1">
+  <zoom_level>10</zoom_level>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>30</x>
+      <y>60</y>
+      <w>220</w>
+      <h>280</h>
+    </coordinates>
+    <panel_attributes>Membre
+--
+- Prenom:String
+- Nom:String
+- NomUtilisateur:String
+- MotPasse:String
+- Ville:String
+- CodePostal:String
+- Courriel:String
+- Admin: Bool
+--
+ValiderInscription(Membre):Bool 
+Suppression(Membre):Bool
+Connexion():Bool
+Déconnexion():Bool
+AjoutMembre()
+Affiche()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>900</x>
+      <y>320</y>
+      <w>180</w>
+      <h>130</h>
+    </coordinates>
+    <panel_attributes>Biere
+--
+-NomBiere:String
+-NombreCaisse:Int
+-Format:Int
+-NombreParCaisse:Int
+-PrixFloat
+--
+MAJBiere()
+AjouterBiere</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>420</x>
+      <y>100</y>
+      <w>330</w>
+      <h>150</h>
+    </coordinates>
+    <panel_attributes>Commande
+--
+-NumCommande:Int
+-CoutTotal:Float
+-TPS:Float
+-TVQ:Float
+--
+AfficherCommande(NumCiommande):Commande
+SupCommande(NumCommande):Bool
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>920</x>
+      <y>180</y>
+      <w>110</w>
+      <h>160</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=0..n
+m2=1
+Contient</panel_attributes>
+    <additional_attributes>60;30;60;140</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>220</x>
+      <y>110</y>
+      <w>220</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+Passe</panel_attributes>
+    <additional_attributes>30;50;200;50</additional_attributes>
+  </element>
+  <element>
+    <type>com.umlet.element.Class</type>
+    <coordinates>
+      <x>910</x>
+      <y>120</y>
+      <w>150</w>
+      <h>90</h>
+    </coordinates>
+    <panel_attributes>Ligne
+--
+-NumLigne:Int
+--
+AjouterLigne ()
+SupprimerLigne ()
+</panel_attributes>
+    <additional_attributes/>
+  </element>
+  <element>
+    <type>com.umlet.element.Relation</type>
+    <coordinates>
+      <x>720</x>
+      <y>110</y>
+      <w>210</w>
+      <h>70</h>
+    </coordinates>
+    <panel_attributes>lt=-
+m1=1
+m2=1..n
+Possède</panel_attributes>
+    <additional_attributes>30;50;190;50</additional_attributes>
+  </element>
+</diagram>
