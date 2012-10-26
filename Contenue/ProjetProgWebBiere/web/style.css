@@ -7,7 +7,6 @@ body {
     padding: 0;
     text-align: left;
     font: 12px Arial, Helvetica, sans-serif;
-    font-size: 13px;
     color: #061C37;
     background: #FACFCF;
     background-image:url(background.png);
@@ -36,7 +35,7 @@ width:960px;
 
 #header h1
 {
-	position:absolute;
+position:absolute;
 text-align:left;
 color:#FFFFFF;
 font-size:43px;
@@ -121,13 +120,11 @@ background-repeat:no-repeat;
 width:689px;
 height:23px;
 }
-
-
-
-
-
-
-
+#TitreIns
+{
+    position: absolute; 
+    bottom: 0;
+}
 
 #footer
 {
@@ -189,3 +186,9 @@ html, body {
 text-align: center;
 }
 p {text-align: left;}
+
+#TexteAcceuil
+{
+   font-size:large;
+   
+}

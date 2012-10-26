@@ -1,0 +1,62 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>Bière fou fou fou</title>
+    </h:head>
+    <h:body>
+        <div id="container">
+            <div id="header">
+                <a href="faces/index.xhtml"><h1>Bière<span class="off"> fou fou fou</span></h1></a>
+                <h2>Quand la bière est plus qu'une passion!</h2>
+            </div>   
+
+            <div id="menu">
+                <ul>
+                    <li class="menuitem"><h:link value="Membre" outcome="Connexion" /></li>
+                    <li class="menuitem"><h:link value="Administration" outcome="Connexion" /></li>
+                    <li class="menuitem"><h:link value="Inscription" outcome="Inscription" /></li>
+                    <li class="menuitem"><a href="http://www.bieropholie.com/">Quitter</a></li>
+                </ul>
+            </div>     
+
+            <div id="content">
+                <div id="content_top"></div>
+                <div id="content_main">
+                    <td style="vertical-align: middle;">
+                        <h2 style="text-align: center;">Formulaire d'inscription</h2>
+                    </td>
+                    <br/>
+                    <h:panelGrid columns="2" cellpadding="0" cellspacing="5">
+                        <h:outputText value="Prénom : "/>
+                        <h:inputText size="15" required="true"/>
+                        <h:outputText value="Nom : "/>
+                        <h:inputText size="15" required="true"/>
+                        <h:outputText value="Nom d'utilisateur : "/>
+                        <h:inputText size="15" required="true"/>
+                        <h:outputText value="Mot de passe : "/>
+                        <h:inputSecret size="15" required="true"/>
+                        <h:outputText value="Confirmer le mot de passe : "/>
+                        <h:inputSecret size="15" required="true"/>
+                        <h:outputText value="Ville : "/>
+                        <h:inputText size="15" required="true"/>
+                        <h:outputText value="Code postal : "/>
+                        <h:inputText size="15" required="true"/>
+                        <h:outputText value="Courriel : "/>
+                        <h:inputText size="15" required="true"/>
+                        <h:panelGroup>
+                            <h:commandButton id="btnInscription" value="Envoyer"/>
+                        </h:panelGroup>
+
+                    </h:panelGrid>
+                </div>
+                <div id="content_bottom"></div>
+
+                <div id="footer"><br/>Tous droits réservés Jean-François Collin et Louis-David Grondin</div>
+            </div>
+        </div>
+    </h:body>
+    
+</html>

@@ -9,7 +9,7 @@
     <h:body>
         <div id="container">
             <div id="header">
-                <a href="index.xhtml"><h1>Bière<span class="off"> fou fou fou</span></h1></a>
+                <a href= "faces/index.xhtml"><h1>Bière<span class="off"> fou fou fou</span></h1></a>
                 <h2>Quand la bière est plus qu'une passion!</h2>
             </div>   
 
@@ -25,10 +25,15 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
-                    <p id="TexteAcceuil">Bière fou fou fou est un site pour les amateurs de bonnes bières belges et pour ceux qui 
-                    désire découvrir autres choses que les bières désinvoltes qui nous sont offert en épicerie. Inscrivez-vous
-                    dès maintenant pour commencer a découvrir ce monde qui nous est malheureusement caché par le monopole présent au
-                    Québec.</p>           	
+                    <h:panelGrid columns="1" cellspacing="5">
+                        <h:outputText value="Nom d'utilisateur : "/>
+                        <h:inputText size="15" required="true"/>
+                        <h:outputText value="Mot de passe : "/>
+                        <h:inputSecret size="15" required="true"/>
+                        <h:panelGroup>
+                            <h:commandButton id="btnLogin" value="Se connecter"/>
+                        </h:panelGroup>
+                    </h:panelGrid>
                 </div>
                 <div id="content_bottom"></div>
 
@@ -38,4 +43,3 @@
     </h:body>
     
 </html>
-
