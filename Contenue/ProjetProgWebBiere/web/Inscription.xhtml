@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <title>Bière fou fou fou</title>
@@ -29,35 +30,43 @@
                         <h2 style="text-align: center;">Formulaire d'inscription</h2>
                     </td>
                     <br/>
+                    <h:form>
                     <h:panelGrid columns="2" cellpadding="0" cellspacing="5">
-                        <h:outputText value="Prénom : "/>
-                        <h:inputText size="15" required="true"/>
+                        <h:outputText id="prenom" value="Prénom : "/>
+                        <h:inputText size="15" required="true" requiredMessage="Prénom obligatoire"/>
                         <h:outputText value="Nom : "/>
-                        <h:inputText size="15" required="true"/>
+                        <h:inputText size="15" required="true" requiredMessage="Nom obligatoire"/>
                         <h:outputText value="Nom d'utilisateur : "/>
-                        <h:inputText size="15" required="true"/>
+                        <h:inputText size="15" required="true" requiredMessage="Nom d'utilisateur obligatoire"/>
                         <h:outputText value="Mot de passe : "/>
-                        <h:inputSecret size="15" required="true"/>
+                        <h:inputSecret size="15" required="true" requiredMessage="Mot de passe obligatoire"/>
                         <h:outputText value="Confirmer le mot de passe : "/>
-                        <h:inputSecret size="15" required="true"/>
+                        <h:inputSecret size="15" required="true" requiredMessage="Écrire votre mot de passe à nouveau"/>
                         <h:outputText value="Ville : "/>
-                        <h:inputText size="15" required="true"/>
+                        <h:inputText size="15" required="true" requiredMessage="Ville obligatoire"/>
                         <h:outputText value="Code postal : "/>
-                        <h:inputText size="15" required="true"/>
+                        <h:inputText size="15" required="true" requiredMessage="Code postal obligatoire"/>
                         <h:outputText value="Courriel : "/>
-                        <h:inputText size="15" required="true"/>
+                        <h:inputText size="15" required="true" requiredMessage="Courriel obligatoire"/>
                         <h:outputText value="Date de naissance (JJ-MM-AAAA) : "/>
                         <h:panelGroup>
-                            <h:inputText size="4" required="true"/>
-                            <h:inputText size="4" required="true"/>
-                            <h:inputText size="8" required="true"/>
+                            <h:selectOneMenu value="#{beanInscription.jour}">
+                                <f:selectItems value="#{beanInscription.jourvaleur}"/>                                
+                            </h:selectOneMenu>
+                            <h:selectOneMenu value="#{beanInscription.mois}">
+                                <f:selectItems value="#{beanInscription.moisvaleur}"/>                                
+                            </h:selectOneMenu>
+                            <h:selectOneMenu value="#{beanInscription.annee}">
+                                <f:selectItems value="#{beanInscription.anneevaleur}"/>                                
+                            </h:selectOneMenu>
                         </h:panelGroup>
                         
                         <h:panelGroup>
-                            <h:commandButton id="btnInscription" value="Envoyer"/>
+                            <h:commandButton id="btnInscription" value="Envoyer" action="index.xhtml"/>
                         </h:panelGroup>
 
                     </h:panelGrid>
+                        </h:form>
                 </div>
                 <div id="content_bottom"></div>
 
