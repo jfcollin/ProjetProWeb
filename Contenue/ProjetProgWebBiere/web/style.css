@@ -269,3 +269,9 @@ p {text-align: left;}
    font-size:large;
    
 }
+#outputerreur
+{
+    text-align:center;
+    font-size:medium;
+    color:#993300;
+}

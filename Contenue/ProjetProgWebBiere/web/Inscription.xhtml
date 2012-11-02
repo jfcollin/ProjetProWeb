@@ -33,21 +33,21 @@
                     <h:form>
                     <h:panelGrid columns="2" cellpadding="0" cellspacing="5">
                         <h:outputText id="prenom" value="Prénom : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Prénom obligatoire"/>
+                        <h:inputText size="15" required="true" requiredMessage="Prénom obligatoire" value="#{beanInscription.prenom}"/>
                         <h:outputText value="Nom : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Nom obligatoire"/>
+                        <h:inputText size="15" required="true" requiredMessage="Nom obligatoire" value="#{beanInscription.nom}"/>
                         <h:outputText value="Nom d'utilisateur : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Nom d'utilisateur obligatoire"/>
+                        <h:inputText size="15" required="true" requiredMessage="Nom d'utilisateur obligatoire" value="#{beanInscription.userName}"/>
                         <h:outputText value="Mot de passe : "/>
-                        <h:inputSecret size="15" required="true" requiredMessage="Mot de passe obligatoire"/>
+                        <h:inputSecret size="15" required="true" requiredMessage="Mot de passe obligatoire" value="#{beanInscription.motdePasse}"/>
                         <h:outputText value="Confirmer le mot de passe : "/>
-                        <h:inputSecret size="15" required="true" requiredMessage="Écrire votre mot de passe à nouveau"/>
+                        <h:inputSecret size="15" required="true" requiredMessage="Écrire votre mot de passe à nouveau" value="#{beanInscription.confMotdePasse}"/>
                         <h:outputText value="Ville : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Ville obligatoire"/>
+                        <h:inputText size="15" required="true" requiredMessage="Ville obligatoire" value="#{beanInscription.ville}"/>
                         <h:outputText value="Code postal : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Code postal obligatoire"/>
+                        <h:inputText size="15" required="true" requiredMessage="Code postal obligatoire" value="#{beanInscription.codePostale}"/>
                         <h:outputText value="Courriel : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Courriel obligatoire"/>
+                        <h:inputText size="15" required="true" requiredMessage="Courriel obligatoire" value="#{beanInscription.courriel}"/>
                         <h:outputText value="Date de naissance (JJ-MM-AAAA) : "/>
                         <h:panelGroup>
                             <h:selectOneMenu value="#{beanInscription.jour}">
@@ -62,10 +62,11 @@
                         </h:panelGroup>
                         
                         <h:panelGroup>
-                            <h:commandButton id="btnInscription" value="Envoyer" action="index.xhtml"/>
+                            <h:commandButton id="btnInscription" value="Envoyer" action="#{beanInscription.creemembre}"/>
                         </h:panelGroup>
 
                     </h:panelGrid>
+                        <h:outputText id ="outputerreur" value="#{beanInscription.m_Erreur}"/>
                         </h:form>
                 </div>
                 <div id="content_bottom"></div>

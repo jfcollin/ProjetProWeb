@@ -7,6 +7,7 @@ package packageBiere;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import java.sql.*;
 
 /**
  *
@@ -25,6 +26,15 @@ public class BeanInscription {
     private String mois="1";
     private String [] anneevaleur = new String [83];
     private String annee="1990";
+    private String UserName = "";
+    private String Nom = "";
+    private String Prenom = "";
+    private String MotdePasse = "";
+    private String ConfMotdePasse = "";
+    private String Ville = "";
+    private String CodePostale = "";
+    private String Courriel = "";
+    private String m_Erreur;
     public BeanInscription() {
     }
 
@@ -130,9 +140,162 @@ public class BeanInscription {
     }
 
     /**
-     * @return the annee
+     * @return the UserName
      */
-    
+    public String getUserName() {
+        return UserName;
+    }
 
+    /**
+     * @param UserName the UserName to set
+     */
+    public void setUserName(String UserName) {
+        this.UserName = UserName;
+    }
+
+    /**
+     * @return the CodePostale
+     */
+    public String getCodePostale() {
+        return CodePostale;
+    }
+
+    /**
+     * @param CodePostale the CodePostale to set
+     */
+    public void setCodePostale(String CodePostale) {
+        this.CodePostale = CodePostale;
+    }
+
+    /**
+     * @return the Nom
+     */
+    public String getNom() {
+        return Nom;
+    }
+
+    /**
+     * @param Nom the Nom to set
+     */
+    public void setNom(String Nom) {
+        this.Nom = Nom;
+    }
+
+    /**
+     * @return the Prenom
+     */
+    public String getPrenom() {
+        return Prenom;
+    }
+
+    /**
+     * @param Prenom the Prenom to set
+     */
+    public void setPrenom(String Prenom) {
+        this.Prenom = Prenom;
+    }
+
+    /**
+     * @return the MotdePasse
+     */
+    public String getMotdePasse() {
+        return MotdePasse;
+    }
+
+    /**
+     * @param MotdePasse the MotdePasse to set
+     */
+    public void setMotdePasse(String MotdePasse) {
+        this.MotdePasse = MotdePasse;
+    }
+
+    /**
+     * @return the ConfMotdePasse
+     */
+    public String getConfMotdePasse() {
+        return ConfMotdePasse;
+    }
+
+    /**
+     * @param ConfMotdePasse the ConfMotdePasse to set
+     */
+    public void setConfMotdePasse(String ConfMotdePasse) {
+        this.ConfMotdePasse = ConfMotdePasse;
+    }
+
+    /**
+     * @return the Ville
+     */
+    public String getVille() {
+        return Ville;
+    }
+
+    /**
+     * @param Ville the Ville to set
+     */
+    public void setVille(String Ville) {
+        this.Ville = Ville;
+    }
+
+    /**
+     * @return the Courriel
+     */
+    public String getCourriel() {
+        return Courriel;
+    }
+
+    /**
+     * @param Courriel the Courriel to set
+     */
+    public void setCourriel(String Courriel) {
+        this.Courriel = Courriel;
+    }
+    
+    public String creemembre()
+    {
+        String retour = "";
+        if (MotdePasse != ConfMotdePasse)
+        {
+            m_Erreur = ("*Mot de passe différent de celui inscrit");
+        }
+        else
+        {
+        try
+        {
+        Connection con;
+        Statement st;
+        //ResultSet rs = null;
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+        st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        String RequeteSQL= "INSERT INTO bieresfoufoufou.membre(Nom,Prenom,NomUtilisateur,MotPasse,Ville,CodePostal,Courriel) values ('" +Nom+"','"+Prenom+"','"+UserName+"','"+MotdePasse+"','"+Ville+"','"+CodePostale+"','"+Courriel+"')";
+        
+        st.executeUpdate(RequeteSQL);
+        //rs = st.executeQuery("INSERT INTO test.dedolle(Nom,Description,Lien) values ('" + request.getParameter("sAjouterNom")+ "','"+request.getParameter("sAjouterDes")+"','"+request.getParameter("sAjouterLien")+"')");
+        //out.print("Ajout réussis");
+        con.close();
+        retour = "index.xhtml";
+        }
+        catch(Exception ex)
+        {
+            //out.print(ex.toString());
+        }  
+        }
+        return retour;
+    }
+
+    /**
+     * @return the m_Erreur
+     */
+    public String getM_Erreur() {
+        return m_Erreur;
+    }
+
+    /**
+     * @param m_Erreur the m_Erreur to set
+     */
+    public void setM_Erreur(String m_Erreur) {
+        this.m_Erreur = m_Erreur;
+    }
 }
 

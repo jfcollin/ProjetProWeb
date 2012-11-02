@@ -25,15 +25,17 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
+                    <h:form>
                     <h:panelGrid columns="1" cellspacing="5">
                         <h:outputText value="Nom d'utilisateur : "/>
-                        <h:inputText size="15" required="true"/>
+                        <h:inputText size="15" required="true" requiredMessage="Nom d'utilisateur obligatoire"/>
                         <h:outputText value="Mot de passe : "/>
-                        <h:inputSecret size="15" required="true"/>
+                        <h:inputSecret size="15" required="true" requiredMessage="Mot de passe obligatoire"/>
                         <h:panelGroup>
-                            <h:commandButton id="btnLogin" value="Se connecter"/>
+                            <h:commandButton id="btnLogin" value="Se connecter" action="membre.xhtml"/>
                         </h:panelGroup>
                     </h:panelGrid>
+                    </h:form>
                 </div>
                 <div id="content_bottom"></div>
 
