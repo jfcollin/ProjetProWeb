@@ -4,10 +4,10 @@
  */
 package packageBiere;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
 import java.sql.*;
+import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
@@ -35,6 +35,8 @@ public class BeanInscription {
     private String CodePostale = "";
     private String Courriel = "";
     private String m_Erreur;
+    private ArrayList tBieres;
+    
     public BeanInscription() {
     }
 
@@ -251,10 +253,66 @@ public class BeanInscription {
         this.Courriel = Courriel;
     }
     
+        /**
+     * @return the m_Erreur
+     */
+    public String getM_Erreur() {
+        return m_Erreur;
+    }
+
+    /**
+     * @param m_Erreur the m_Erreur to set
+     */
+    public void setM_Erreur(String m_Erreur) {
+        this.m_Erreur = m_Erreur;
+    }
+
+    /**
+     * @return the tBieres
+     */
+    public ArrayList gettBieres() 
+    {
+        Boolean bValide=true;
+        tBieres = new ArrayList();
+         try
+        {
+        Connection con;
+        Statement st;
+        ResultSet rs = null;
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+        st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        rs = st.executeQuery("Select * from bieresfoufoufou.biere");
+        while(bValide==true)
+            {
+               bValide = rs.next();
+               if(bValide==true)
+                    {
+                        tBieres.add(new packageBiere.Bieres(rs.getString("NomBiere"), 
+                                    rs.getInt("NombreCaisse"), rs.getInt("Format"), 
+                                    rs.getInt("NombreParCaisse"), rs.getDouble("Prix")));
+                    }
+             }
+        }
+        catch(Exception ex)
+        {
+            //out.print(ex.toString());
+        }
+        
+        return tBieres;
+    }
+
+    /**
+     * @param tBieres the tBieres to set
+     */
+    public void settBieres(ArrayList tBieres) {
+        this.tBieres = tBieres;
+    }
+    
     public String creemembre()
     {
         String retour = "";
-        if (MotdePasse != ConfMotdePasse)
+        if (!MotdePasse.equals(ConfMotdePasse))
         {
             m_Erreur = ("*Mot de passe différent de celui inscrit");
         }
@@ -282,20 +340,6 @@ public class BeanInscription {
         }  
         }
         return retour;
-    }
-
-    /**
-     * @return the m_Erreur
-     */
-    public String getM_Erreur() {
-        return m_Erreur;
-    }
-
-    /**
-     * @param m_Erreur the m_Erreur to set
-     */
-    public void setM_Erreur(String m_Erreur) {
-        this.m_Erreur = m_Erreur;
-    }
+    }  
 }
 

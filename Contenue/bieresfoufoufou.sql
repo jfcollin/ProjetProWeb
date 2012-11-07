@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Ven 02 Novembre 2012 à 20:16
+-- Généré le: Mer 07 Novembre 2012 à 22:29
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -35,7 +35,23 @@ CREATE TABLE IF NOT EXISTS `biere` (
   `Prix` double NOT NULL,
   PRIMARY KEY (`IDBiere`),
   UNIQUE KEY `IDBiere` (`IDBiere`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+
+--
+-- Contenu de la table `biere`
+--
+
+INSERT INTO `biere` (`IDBiere`, `NomBiere`, `NombreCaisse`, `Format`, `NombreParCaisse`, `Prix`) VALUES
+(1, 'Hornbeer Stout', 4, 500, 12, 101.4),
+(2, 'Carolus Triple', 4, 330, 24, 97.8),
+(3, 'Boon Faro', 2, 250, 24, 76.8),
+(4, 'To Øl Black Ball', 4, 660, 12, 134),
+(5, 'Morpheus Extra', 5, 330, 24, 108),
+(6, 'Westmalle Double', 10, 330, 24, 96),
+(7, 'Slaapmutske Brune', 5, 750, 6, 90),
+(8, 'Vapeur Cochonne', 3, 1500, 6, 102.85),
+(9, 'Quintine Hercule', 6, 330, 20, 138),
+(10, 'Corsendonk Pater', 4, 330, 24, 102);
 
 -- --------------------------------------------------------
 
@@ -88,7 +104,7 @@ CREATE TABLE IF NOT EXISTS `membre` (
   `Admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`IDMembre`),
   UNIQUE KEY `IDMembre` (`IDMembre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=5 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
 
 --
 -- Contenu de la table `membre`
@@ -98,7 +114,10 @@ INSERT INTO `membre` (`IDMembre`, `Prenom`, `Nom`, `NomUtilisateur`, `MotPasse`,
 (1, 'q', 'q', 'q', 'q', 'q', 'q', 'q', 0),
 (2, 'q', 'q', 'q', 'q', 'q', 'q', 'q', 0),
 (3, 'j', 'gh', 'j', 'r', 'j', 'j', 'j', 0),
-(4, 'lkl;kl;k', 'kl;kl;kl;', 'kl;kl;k', 'kl;k', 'kl;', 'kl;', 'kl;', 0);
+(4, 'lkl;kl;k', 'kl;kl;kl;', 'kl;kl;k', 'kl;k', 'kl;', 'kl;', 'kl;', 0),
+(5, 'll', 'll', 'll', 'll', 'll', 'll', 'll', 0),
+(6, 'll', 'll', 'll', 'a', 'll', 'G1Q1Q9', 'll', 0),
+(7, 'Rory', 'B. Bellows', 'RoryB', 'rory1234', 'Springfield', 'G4G4G4', 'rory@hotmail.com', 0);
 
 --
 -- Contraintes pour les tables exportées

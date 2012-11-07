@@ -31,23 +31,43 @@
                     </td>
                     <br/>
                     <h:form>
-                    <h:panelGrid columns="2" cellpadding="0" cellspacing="5">
+                    <h:panelGrid columns="3" cellpadding="0" cellspacing="5">
                         <h:outputText id="prenom" value="Prénom : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Prénom obligatoire" value="#{beanInscription.prenom}"/>
+                        <h:inputText id="inprenom" size="15" required="true" requiredMessage="Prénom obligatoire" value="#{beanInscription.prenom}"/>
+                        <h:message for="inprenom" style="color:red" />
+                        
                         <h:outputText value="Nom : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Nom obligatoire" value="#{beanInscription.nom}"/>
+                        <h:inputText id="innom" size="15" required="true" requiredMessage="Nom obligatoire" value="#{beanInscription.nom}"/>
+                        <h:message for="innom" style="color:red" />
+                        
                         <h:outputText value="Nom d'utilisateur : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Nom d'utilisateur obligatoire" value="#{beanInscription.userName}"/>
+                        <h:inputText id="inuser" size="15" required="true" requiredMessage="Nom d'utilisateur obligatoire" value="#{beanInscription.userName}"/>
+                        <h:message for="inuser" style="color:red" />
+                        
                         <h:outputText value="Mot de passe : "/>
-                        <h:inputSecret size="15" required="true" requiredMessage="Mot de passe obligatoire" value="#{beanInscription.motdePasse}"/>
+                        <h:inputSecret id="inmdp" size="15" required="true" requiredMessage="Mot de passe obligatoire" value="#{beanInscription.motdePasse}"/>
+                        <h:message for="inmdp" style="color:red" />
+                        
                         <h:outputText value="Confirmer le mot de passe : "/>
-                        <h:inputSecret size="15" required="true" requiredMessage="Écrire votre mot de passe à nouveau" value="#{beanInscription.confMotdePasse}"/>
+                        <h:inputSecret id="inconfmdp" size="15" required="true" requiredMessage="Écrire votre mot de passe à nouveau" value="#{beanInscription.confMotdePasse}"/>
+                        <h:message for="inconfmdp" style="color:red" />
+                        
                         <h:outputText value="Ville : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Ville obligatoire" value="#{beanInscription.ville}"/>
+                        <h:inputText id="inville" size="15" required="true" requiredMessage="Ville obligatoire" value="#{beanInscription.ville}"/>
+                        <h:message for="inville" style="color:red" />
+                        
                         <h:outputText value="Code postal : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Code postal obligatoire" value="#{beanInscription.codePostale}"/>
+                        <h:inputText id="incp" size="15" required="true" requiredMessage="Code postal obligatoire" validatorMessage="Format invalide" value="#{beanInscription.codePostale}">
+                            <f:validateRegex pattern="^[ABCEGHJKLMNPRSTVXY]{1}\d{1}[A-Z]{1} *\d{1}[A-Z]{1}\d{1}$" />
+                        </h:inputText>
+                        <h:message for="incp" style="color:red" />
+                        
                         <h:outputText value="Courriel : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Courriel obligatoire" value="#{beanInscription.courriel}"/>
+                        <h:inputText id="inemail" size="15" required="true" requiredMessage="Courriel obligatoire" validatorMessage="Format invalide" value="#{beanInscription.courriel}">
+                            <f:validateRegex pattern="^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" />
+                        </h:inputText>
+                        <h:message for="inemail" style="color:red" />
+                        
                         <h:outputText value="Date de naissance (JJ-MM-AAAA) : "/>
                         <h:panelGroup>
                             <h:selectOneMenu value="#{beanInscription.jour}">
@@ -60,7 +80,7 @@
                                 <f:selectItems value="#{beanInscription.anneevaleur}"/>                                
                             </h:selectOneMenu>
                         </h:panelGroup>
-                        
+                        <h:outputText value=""/>
                         <h:panelGroup>
                             <h:commandButton id="btnInscription" value="Envoyer" action="#{beanInscription.creemembre}"/>
                         </h:panelGroup>

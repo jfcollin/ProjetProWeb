@@ -275,3 +275,18 @@ p {text-align: left;}
     font-size:medium;
     color:#993300;
 }
+#container #content #content_main .titretableau
+{
+    text-align:center;
+    color:#616880
+}
+#container #content #content_main .colonnetableau
+{
+    text-align:center;
+    color:#8D92A4
+}
+#container #content #content_main .colonnedroite
+{
+    text-align:right;
+    color:#8D92A4
+}

@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <title>Bière fou fou fou</title>
@@ -40,7 +41,40 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
-                    Liste des Bieres
+                    <h:dataTable value="#{beanInscription.tBieres}" var="Bieres" border="1" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.nom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre de caisse disponible"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.nombrecaisses}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Format"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.format} ml"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre par caisse"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.nombreparcaisse}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix ($)"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.prix}">
+                                <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </h:column>
+                    </h:dataTable>
                 </div>
                 <div id="content_bottom"></div>
 
