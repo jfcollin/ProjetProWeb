@@ -41,7 +41,7 @@
                 <div id="content_top"></div>
                 <div id="content_main">
                      <h:form>
-                    <h:dataTable value="#{beanInscription.tBieres}" var="Bieres" border="1" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
+                    <h:dataTable value="#{beanBieres.tBieres}" var="Bieres" border="1" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
                         <h:column>
                             <f:facet name="header">
                                 <h:outputText value="Nom"></h:outputText>
@@ -81,7 +81,7 @@
                             <h:inputText maxlength="2" value="#{Bieres.nbcommande}"/>                            
                         </h:column>
                     </h:dataTable>
-                    <h:commandButton id="btnCommande" value="Commander" action="#{beanInscription.passercommande}"/>
+                    <h:commandButton id="btnCommande" value="Commander" action="#{beanBieres.passercommande}"/>
                </h:form>
                 </div>
                 <div id="content_bottom"></div>
