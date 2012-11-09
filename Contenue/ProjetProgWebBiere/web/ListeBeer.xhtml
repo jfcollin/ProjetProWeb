@@ -40,6 +40,7 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
+                     <h:form>
                     <h:dataTable value="#{beanInscription.tBieres}" var="Bieres" border="1" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
                         <h:column>
                             <f:facet name="header">
@@ -73,7 +74,15 @@
                                 <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
                             </h:outputText>
                         </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Commander"></h:outputText>
+                            </f:facet>
+                            <h:inputText maxlength="2" value="#{Bieres.nbcommande}"/>                            
+                        </h:column>
                     </h:dataTable>
+                    <h:commandButton id="btnCommande" value="Commander" action="#{beanInscription.passercommande}"/>
+               </h:form>
                 </div>
                 <div id="content_bottom"></div>
 

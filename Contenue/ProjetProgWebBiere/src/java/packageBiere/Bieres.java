@@ -9,6 +9,7 @@ package packageBiere;
  * @author Administrateur
  */
 public class Bieres {
+    private int idbiere;
     private String nom;
     private int nombrecaisses;
     private int format;
@@ -19,8 +20,9 @@ public class Bieres {
     /**
      * Constructeur
      */
-    public Bieres (String n, int nb, int f, int npc, double p)
+    public Bieres (int idb, String n, int nb, int f, int npc, double p)
     {
+        idbiere = idb;
         nom = n;
         nombrecaisses = nb;
         format = f;
@@ -117,6 +119,20 @@ public class Bieres {
      */
     public void setNbcommande(int nbcommande) {
         this.nbcommande = nbcommande;
+    }
+
+    /**
+     * @return the idbiere
+     */
+    public int getIdbiere() {
+        return idbiere;
+    }
+
+    /**
+     * @param idbiere the idbiere to set
+     */
+    public void setIdbiere(int idbiere) {
+        this.idbiere = idbiere;
     }
     
 }
