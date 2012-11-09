@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <title>Bière fou fou fou</title>
@@ -39,7 +40,33 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
-                    Commander!
+                    <h:form>
+                    <h:dataTable value="#{beanBieres.m_Lignes}" var="Ligne" border="1" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre de caisse"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Ligne.nbcaisse}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom de la bière"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Ligne.nom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix unitaire"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Ligne.prixUni}">
+                                <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </h:column>
+                    </h:dataTable>
+                        
+                    <h:commandButton id="btnCommander" value="Commander" action="#{beanBieres.confirmercommande}"/>
+                    <h:commandButton id="btnAnnuler" value="Annuler" action="#{beanBieres.Annule}"/>
+               </h:form>
                 </div>
                 <div id="content_bottom"></div>
 

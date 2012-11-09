@@ -12,18 +12,23 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 
 /**
  *
  * @author Administrateur
  */
 @ManagedBean
-@RequestScoped
+@SessionScoped
 public class BeanBieres {
     
     private ArrayList tBieres;
     private ArrayList tCommandes;
     private ArrayList m_Lignes;
+    private double Cout=0;
+    private double TPS=0;
+    private double TVQ=0;
+    private double couttotal=0;
 
     /**
      * Creates a new instance of BeanMembres
@@ -115,20 +120,14 @@ public class BeanBieres {
     public String passercommande ()
     {
         m_Lignes = new ArrayList();
-        String retour="";
-        double Cout=0;
-        double TPS=0;
-        double TVQ=0;
-        int IDCmd=0;
-        int insertedKeyValue=0;
-        String Erreur="";
+        String retour="";     
         
         for (int i=0; i<tBieres.size(); i++)
         {
             Bieres beer = (Bieres)tBieres.get(i);
             if (beer.getNbcommande()>0)
             {
-                m_Lignes.add(new packageBiere.Ligne(beer.getIdbiere(),beer.getNbcommande()));
+                m_Lignes.add(new packageBiere.Ligne(beer.getIdbiere(),beer.getNbcommande(), beer.getNom(), beer.getPrix()));
                 Cout += beer.getPrix() * beer.getNbcommande();
             }
         }
@@ -137,7 +136,36 @@ public class BeanBieres {
         {
             TPS=Cout*0.05;
             TVQ = (Cout+TPS)*0.095;
-            try
+     
+            retour = "Commander.xhtml";
+            
+            
+        }
+        
+        return retour;
+    }
+
+    /**
+     * @return the m_Lignes
+     */
+    public ArrayList getM_Lignes() {
+        return m_Lignes;
+    }
+
+    /**
+     * @param m_Lignes the m_Lignes to set
+     */
+    public void setM_Lignes(ArrayList m_Lignes) {
+        this.m_Lignes = m_Lignes;
+    }
+    
+    public String confirmercommande ()
+    {
+        String Retour ="index.xhtml";
+        int insertedKeyValue=0;
+        String Erreur="";
+        
+               try
             {
                 
                 Connection con;
@@ -176,28 +204,29 @@ public class BeanBieres {
                 }
                 catch(Exception ex)
                 {
-                    //out.print(ex.toString());
+                    Erreur = ex.toString();
                 }
             }
-            retour = "Commander.xhtml";
-            
-            
-        }
         
-        return retour;
+        return  Retour;
+        
+    }
+    public String Annule ()
+    {
+        return "ListeBeer.xhtml";
     }
 
     /**
-     * @return the m_Lignes
+     * @return the couttotal
      */
-    public ArrayList getM_Lignes() {
-        return m_Lignes;
+    public double getCouttotal() {
+        return couttotal;
     }
 
     /**
-     * @param m_Lignes the m_Lignes to set
+     * @param couttotal the couttotal to set
      */
-    public void setM_Lignes(ArrayList m_Lignes) {
-        this.m_Lignes = m_Lignes;
+    public void setCouttotal(double couttotal) {
+        this.couttotal = couttotal;
     }
 }
