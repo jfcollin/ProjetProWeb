@@ -36,6 +36,7 @@ public class BeanInscription {
     private String Courriel = "";
     private String m_Erreur;
     private ArrayList tBieres;
+            
     
     public BeanInscription() {
     }
@@ -276,9 +277,10 @@ public class BeanInscription {
         tBieres = new ArrayList();
          try
         {
+        
+        ResultSet rs = null;
         Connection con;
         Statement st;
-        ResultSet rs = null;
         Class.forName("com.mysql.jdbc.Driver").newInstance();
         con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
         st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);

@@ -14,6 +14,7 @@ public class Bieres {
     private int format;
     private int nombreparcaisse;
     private double prix;
+    private int nbcommande;
 
     /**
      * Constructeur
@@ -25,6 +26,7 @@ public class Bieres {
         format = f;
         nombreparcaisse = npc;
         prix = p;
+        nbcommande=0;
     }
     
     /**
@@ -101,6 +103,20 @@ public class Bieres {
      */
     public void setPrix(double prix) {
         this.prix = prix;
+    }
+
+    /**
+     * @return the nbcommande
+     */
+    public int getNbcommande() {
+        return nbcommande;
+    }
+
+    /**
+     * @param nbcommande the nbcommande to set
+     */
+    public void setNbcommande(int nbcommande) {
+        this.nbcommande = nbcommande;
     }
     
 }
