@@ -34,7 +34,9 @@ public class BeanInscription {
     private String Ville = "";
     private String CodePostale = "";
     private String Courriel = "";
-    private String m_Erreur;            
+    private String m_Erreur;
+    private ArrayList tMembres;
+    
     
     public BeanInscription() {
     }
@@ -286,8 +288,6 @@ public class BeanInscription {
             String RequeteSQL= "INSERT INTO bieresfoufoufou.membre(Nom,Prenom,NomUtilisateur,MotPasse,Ville,CodePostal,Courriel) values ('" +Nom+"','"+Prenom+"','"+UserName+"','"+MotdePasse+"','"+Ville+"','"+CodePostale+"','"+Courriel+"')";
 
             st.executeUpdate(RequeteSQL);
-            //rs = st.executeQuery("INSERT INTO test.dedolle(Nom,Description,Lien) values ('" + request.getParameter("sAjouterNom")+ "','"+request.getParameter("sAjouterDes")+"','"+request.getParameter("sAjouterLien")+"')");
-            //out.print("Ajout réussis");
             con.close();
             retour = "index.xhtml";
             }
@@ -298,5 +298,49 @@ public class BeanInscription {
         }
         return retour;
     } 
+
+    /**
+     * @return the tMembres
+     */
+    public ArrayList gettMembres() {
+        
+        Boolean bValide=true;
+        tMembres = new ArrayList();
+        try
+        {
+        
+        ResultSet rs = null;
+        Connection con;
+        Statement st;
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+        st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        rs = st.executeQuery("Select * from bieresfoufoufou.membre");
+        while(bValide==true)
+            {
+               bValide = rs.next();
+               if(bValide==true)
+                    {
+                        tMembres.add(new packageBiere.Membre(rs.getInt("IDMembre"), 
+                                    rs.getString("NomUtilisateur"), rs.getString("Nom"), 
+                                    rs.getString("Prenom"), rs.getString("MotPasse"),
+                                    rs.getString("MotPasse"), rs.getString("Ville"),
+                                    rs.getString("CodePostal"), rs.getString("Courriel")));
+                    }
+             }
+        }
+        catch(Exception ex)
+        {
+            //out.print(ex.toString());
+        }
+        return tMembres;
+    }
+
+    /**
+     * @param tMembres the tMembres to set
+     */
+    public void settMembres(ArrayList tMembres) {
+        this.tMembres = tMembres;
+    }
 }
 
