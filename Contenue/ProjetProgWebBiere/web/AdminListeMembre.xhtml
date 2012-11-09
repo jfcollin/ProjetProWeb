@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <title>Bière fou fou fou</title>
+    </h:head>
+    <h:body>
+        <div id="container">
+            <div id="header">
+                <a href= "faces/index.xhtml"><h1>Bière<span class="off"> fou fou fou</span></h1></a>
+                <h2>Quand la bière est plus qu'une passion!</h2>
+            </div>   
+
+            <div id="menu">
+                <ul>
+                    <li class="menuitem"><h:link value="Membre" outcome="Connexion" /></li>
+                    <li class="menuitem"><h:link value="Administration" outcome="Connexion" /></li>
+                    <li class="menuitem"><h:link value="Inscription" outcome="Inscription" /></li>
+                    <li class="menuitem"><a href="http://www.bieropholie.com/">Quitter</a></li>
+                </ul>
+            </div>     
+
+        <div id="leftmenu">
+
+            <div id="leftmenu_top"></div>
+                
+            
+            <div id="leftmenu_main">   
+                 <h3>Liens</h3>
+                <ul>
+                    <li class="leftmenuitem"><h:link value="Liste de bières" outcome="AdminListeBeer"/></li>
+                    <li class="leftmenuitem"><h:link value="Liste des membres"/></li>
+                    <li class="leftmenuitem"><h:link value="Liste des Commandes" outcome="AdminListeCommandes" /></li>
+                    <li class="leftmenuitem"><h:link value="Communiqué" outcome="AdminCommunique" /></li>
+                </ul>
+            </div>
+              <div id="leftmenu_bottom"></div>
+        </div>
+            <div id="content">
+                <div id="content_top"></div>
+                <div id="content_main">
+                    <h:dataTable value="#{beanInscription.tBieres}" var="Bieres" border="1" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nom"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.nom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre de caisse disponible"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.nombrecaisses}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Format"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.format} ml"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Nombre par caisse"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.nombreparcaisse}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Prix ($)"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Bieres.prix}">
+                                <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+                <div id="content_bottom"></div>
+
+                <div id="footer"><br/>Tous droits réservés Jean-François Collin et Louis-David Grondin</div>
+            </div>
+        </div>
+    </h:body>
+    
+</html>
