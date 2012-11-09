@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Client: localhost
--- Généré le: Mer 07 Novembre 2012 à 22:29
+-- Généré le: Ven 09 Novembre 2012 à 21:06
 -- Version du serveur: 5.5.24-log
 -- Version de PHP: 5.3.13
 
@@ -67,8 +67,20 @@ CREATE TABLE IF NOT EXISTS `commande` (
   `TVQ` double NOT NULL,
   PRIMARY KEY (`IDCommande`),
   UNIQUE KEY `IDCommande` (`IDCommande`),
-  UNIQUE KEY `IDMembre` (`IDMembre`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `commande_ibfk_1` (`IDMembre`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+
+--
+-- Contenu de la table `commande`
+--
+
+INSERT INTO `commande` (`IDCommande`, `IDMembre`, `CoutTotal`, `TPS`, `TVQ`) VALUES
+(1, 1, 204, 10.200000000000001, 20.349),
+(2, 1, 204, 10.200000000000001, 20.349),
+(3, 1, 204, 10.200000000000001, 20.349),
+(4, 1, 204, 10.200000000000001, 20.349),
+(5, 1, 615.6, 30.78, 61.4061),
+(6, 1, 333.6, 16.680000000000003, 33.2766);
 
 -- --------------------------------------------------------
 
@@ -80,11 +92,26 @@ CREATE TABLE IF NOT EXISTS `ligne` (
   `IDLigne` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
   `IDCommande` bigint(20) unsigned NOT NULL,
   `IDBiere` bigint(20) unsigned NOT NULL,
+  `NbCaisse` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`IDLigne`),
   UNIQUE KEY `IDLigne` (`IDLigne`),
-  UNIQUE KEY `IDCommande` (`IDCommande`),
-  UNIQUE KEY `IDBiere` (`IDBiere`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  KEY `ligne_ibfk_1` (`IDCommande`),
+  KEY `ligne_ibfk_2` (`IDBiere`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Contenu de la table `ligne`
+--
+
+INSERT INTO `ligne` (`IDLigne`, `IDCommande`, `IDBiere`, `NbCaisse`) VALUES
+(1, 1, 10, 2),
+(2, 1, 10, 2),
+(3, 4, 10, 2),
+(4, 5, 2, 2),
+(5, 5, 5, 2),
+(6, 5, 10, 2),
+(7, 6, 3, 2),
+(8, 6, 7, 2);
 
 -- --------------------------------------------------------
 
@@ -104,7 +131,7 @@ CREATE TABLE IF NOT EXISTS `membre` (
   `Admin` tinyint(1) NOT NULL DEFAULT '0',
   PRIMARY KEY (`IDMembre`),
   UNIQUE KEY `IDMembre` (`IDMembre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=8 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
 
 --
 -- Contenu de la table `membre`
@@ -117,7 +144,8 @@ INSERT INTO `membre` (`IDMembre`, `Prenom`, `Nom`, `NomUtilisateur`, `MotPasse`,
 (4, 'lkl;kl;k', 'kl;kl;kl;', 'kl;kl;k', 'kl;k', 'kl;', 'kl;', 'kl;', 0),
 (5, 'll', 'll', 'll', 'll', 'll', 'll', 'll', 0),
 (6, 'll', 'll', 'll', 'a', 'll', 'G1Q1Q9', 'll', 0),
-(7, 'Rory', 'B. Bellows', 'RoryB', 'rory1234', 'Springfield', 'G4G4G4', 'rory@hotmail.com', 0);
+(7, 'Rory', 'B. Bellows', 'RoryB', 'rory1234', 'Springfield', 'G4G4G4', 'rory@hotmail.com', 0),
+(8, 'Jo', 'Lamothe', 'pet', 'pet', 'Petland', 'G1Q1Q9', 'pet@pet.pet', 0);
 
 --
 -- Contraintes pour les tables exportées
