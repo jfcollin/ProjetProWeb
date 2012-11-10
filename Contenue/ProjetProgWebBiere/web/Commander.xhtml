@@ -67,19 +67,19 @@
                     </h:dataTable>
                     <br/>
                     <h:panelGrid columns="2" cellpadding="0" cellspacing="5" columnClasses="colonnecrit, colonneprix">
-                        <h:outputText id="cout1" value="Prix :"/>
+                        <h:outputText id="cout1" value="Sous Total ($)"/>
                         <h:outputText id="cout2" value="#{beanBieres.cout}">
                             <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
                         </h:outputText>
-                        <h:outputText id="tps1" value="TPS :"/>
+                        <h:outputText id="tps1" value="TPS ($)"/>
                         <h:outputText id="tps2" value="#{beanBieres.tps}">
                             <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
                         </h:outputText>
-                        <h:outputText id="tvq1" value="Prix :"/>
+                        <h:outputText id="tvq1" value="TVQ ($)"/>
                         <h:outputText id="tvq2" value="#{beanBieres.tvq}">
                             <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
                         </h:outputText>
-                        <h:outputText id="total1" value="Total :"/>
+                        <h:outputText id="total1" value="Total ($)"/>
                         <h:outputText id="total2" value="#{beanBieres.couttotal}">
                             <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
                         </h:outputText>

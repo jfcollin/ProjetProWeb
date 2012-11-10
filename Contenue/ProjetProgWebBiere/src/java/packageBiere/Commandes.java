@@ -4,6 +4,10 @@
  */
 package packageBiere;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  *
  * @author Administrateur
@@ -14,7 +18,9 @@ public class Commandes {
     private double coutTotal;
     private double tVQ;
     private double tPS;
-
+    private double total;
+    private Date datecmd;
+    private String dateheure;
     /**
      * Constructeur
      */
@@ -25,6 +31,20 @@ public class Commandes {
         coutTotal = CT;
         tVQ = VQ;
         tPS = PS;
+        total = coutTotal + tVQ + tPS;
+        
+    }
+    public Commandes (int M, int Com, double CT, double PS, double VQ, Date d)
+    {
+        iDMembre = M;
+        iDCommande = Com;
+        coutTotal = CT;
+        tVQ = VQ;
+        tPS = PS;
+        total = coutTotal + tVQ + tPS;
+        datecmd = d;
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd");
+        dateheure = dateFormat.format(datecmd);
     }
 
     /**
@@ -95,6 +115,49 @@ public class Commandes {
      */
     public void settPS(double tPS) {
         this.tPS = tPS;
+    }
+
+    /**
+     * @return the total
+     */
+    public double getTotal() {
+        return total;
+    }
+
+    /**
+     * @param total the total to set
+     */
+    public void setTotal(double total) {
+        this.total = total;
+    }
+
+    /**
+     * @return the datecmd
+     */
+    public Date getDatecmd() {
+        return datecmd;
+    }
+
+    /**
+     * @param datecmd the datecmd to set
+     */
+    public void setDatecmd(Date datecmd) {
+        this.datecmd = datecmd;
+    }
+
+    /**
+     * @return the dateheure
+     */
+    public String getDateheure() {
+            
+        return dateheure;
+    }
+
+    /**
+     * @param dateheure the dateheure to set
+     */
+    public void setDateheure(String dateheure) {
+        this.dateheure = dateheure;
     }
     
 }

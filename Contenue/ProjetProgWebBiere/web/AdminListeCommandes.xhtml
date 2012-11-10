@@ -42,16 +42,16 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
-                    <h:dataTable value="#{beanBieres.tCommandes}" var="Commandes" border="1" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
+                    <h:dataTable value="#{beanBieres.tCommandes}" var="Commandes" cellpadding="5" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="IDCommande"></h:outputText>
+                                <h:outputText value="# Commande"></h:outputText>
                             </f:facet>
                             <h:outputText value="#{Commandes.iDCommande}"/>
                         </h:column>
                         <h:column>
                             <f:facet name="header">
-                                <h:outputText value="IDMembre"></h:outputText>
+                                <h:outputText value="# Membre"></h:outputText>
                             </f:facet>
                             <h:outputText value="#{Commandes.iDMembre}"/>
                         </h:column>

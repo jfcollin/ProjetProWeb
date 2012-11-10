@@ -33,6 +33,7 @@ public class BeanBieres {
     private double tvq=0;
     private double couttotal=0;
     private String m_Erreur="";
+    private ArrayList m_Commandemem;
 
     /**
      * Creates a new instance of BeanMembres
@@ -343,5 +344,50 @@ public class BeanBieres {
     public void setM_Erreur(String m_Erreur) {
         this.m_Erreur = m_Erreur;
     }
+
+    /**
+     * @return the m_Commandemem
+     */
+    public ArrayList getM_Commandemem() 
+    {
+        String erreur="";
+        Boolean bValide=true;
+        m_Commandemem = new ArrayList();
+         try
+        {
+        
+        ResultSet rs = null;
+        Connection con;
+        Statement st;
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
+        st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
+        rs = st.executeQuery("Select * from bieresfoufoufou.commande where IDMembre='1'");
+        while(bValide==true)
+            {
+               bValide = rs.next();
+               if(bValide==true)
+                    {
+                        m_Commandemem.add(new packageBiere.Commandes(rs.getInt("IDMembre"), 
+                                    rs.getInt("IDCommande"), rs.getDouble("CoutTotal"), 
+                                    rs.getDouble("TVQ"), rs.getDouble("TPS"), rs.getDate("datecom")));
+                    }
+             }
+        }
+        catch(Exception ex)
+        {
+            erreur = ex.toString();
+        }
+        
+        return m_Commandemem;
+    }
+
+    /**
+     * @param m_Commandemem the m_Commandemem to set
+     */
+    public void setM_Commandemem(ArrayList m_Commandemem) {
+        this.m_Commandemem = m_Commandemem;
+    }
+
 
 }

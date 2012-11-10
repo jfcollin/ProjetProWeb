@@ -26,10 +26,12 @@ SET time_zone = "+00:00";
 -- Structure de la table `biere`
 --
 
+DROP TABLE IF EXISTS ligne;
+DROP TABLE IF EXISTS commande;
 DROP TABLE IF EXISTS membre;
 DROP TABLE IF EXISTS biere;
-DROP TABLE IF EXISTS commande;
-DROP TABLE IF EXISTS ligne;
+
+
 
 CREATE TABLE IF NOT EXISTS `biere` (
   `IDBiere` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -60,6 +62,33 @@ INSERT INTO `biere` (`IDBiere`, `NomBiere`, `NombreCaisse`, `Format`, `NombrePar
 
 -- --------------------------------------------------------
 
+-- Structure de la table `membre`
+--
+
+CREATE TABLE IF NOT EXISTS `membre` (
+  `IDMembre` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `Prenom` varchar(20) NOT NULL,
+  `Nom` varchar(20) NOT NULL,
+  `NomUtilisateur` varchar(30) NOT NULL,
+  `MotPasse` varchar(15) NOT NULL,
+  `Ville` varchar(20) NOT NULL,
+  `CodePostal` varchar(7) NOT NULL,
+  `Courriel` varchar(50) NOT NULL,
+  `Admin` tinyint(1) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`IDMembre`),
+  UNIQUE KEY `IDMembre` (`IDMembre`)
+) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Contenu de la table `membre`
+--
+
+INSERT INTO `membre` (`IDMembre`, `Prenom`, `Nom`, `NomUtilisateur`, `MotPasse`, `Ville`, `CodePostal`, `Courriel`, `Admin`) VALUES
+(1, 'Admn', 'Nistrateur', 'admin', 'admin123', 'Springfield', 'G1Q1Q9', 'admin@hotmail.com', 1),
+(2, 'Rory', 'B. Bellows', 'RoryB', 'rory1234', 'Springfield', 'G4G4G4', 'rory@hotmail.com', 0),
+(3, 'Jo', 'Lamothe', 'pet', 'pet', 'Petland', 'G1Q1Q9', 'pet@pet.pet', 0);
+-- --------------------------------------------------------
+
 --
 -- Structure de la table `commande`
 --
@@ -73,8 +102,11 @@ CREATE TABLE IF NOT EXISTS `commande` (
    `datecom` DATETIME NOT NULL,
   PRIMARY KEY (`IDCommande`),
   UNIQUE KEY `IDCommande` (`IDCommande`),
-  KEY `commande_ibfk_1` (`IDMembre`)
+  FOREIGN KEY `commande` (`IDMembre`) REFERENCES `membre` (`IDMembre`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=7 ;
+--
+-- Contraintes pour la table `commande`
+--
 
 --
 -- Contenu de la table `commande`
@@ -98,9 +130,13 @@ CREATE TABLE IF NOT EXISTS `ligne` (
   `NbCaisse` bigint(20) unsigned NOT NULL,
   PRIMARY KEY (`IDLigne`),
   UNIQUE KEY `IDLigne` (`IDLigne`),
-  KEY `ligne_ibfk_1` (`IDCommande`),
-  KEY `ligne_ibfk_2` (`IDBiere`)
+  FOREIGN KEY (`IDCommande`) REFERENCES `commande` (`IDCommande`) ON DELETE CASCADE ON UPDATE CASCADE,
+  FOREIGN KEY (`IDBiere`) REFERENCES `biere` (`IDBiere`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9 ;
+
+--
+-- Contraintes pour la table `ligne`
+--
 
 --
 -- Contenu de la table `ligne`
@@ -112,49 +148,12 @@ INSERT INTO `ligne` (`IDLigne`, `IDCommande`, `IDBiere`, `NbCaisse`) VALUES
 
 -- --------------------------------------------------------
 
---
--- Structure de la table `membre`
---
-
-CREATE TABLE IF NOT EXISTS `membre` (
-  `IDMembre` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `Prenom` varchar(20) NOT NULL,
-  `Nom` varchar(20) NOT NULL,
-  `NomUtilisateur` varchar(30) NOT NULL,
-  `MotPasse` varchar(15) NOT NULL,
-  `Ville` varchar(20) NOT NULL,
-  `CodePostal` varchar(7) NOT NULL,
-  `Courriel` varchar(50) NOT NULL,
-  `Admin` tinyint(1) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`IDMembre`),
-  UNIQUE KEY `IDMembre` (`IDMembre`)
-) ENGINE=InnoDB  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
-
---
--- Contenu de la table `membre`
---
-
-INSERT INTO `membre` (`IDMembre`, `Prenom`, `Nom`, `NomUtilisateur`, `MotPasse`, `Ville`, `CodePostal`, `Courriel`, `Admin`) VALUES
-(1, 'Admn', 'Nistrateur', 'admin', 'admin123', 'Springfield', 'G1Q1Q9', 'admin@hotmail.com', 1),
-(2, 'Rory', 'B. Bellows', 'RoryB', 'rory1234', 'Springfield', 'G4G4G4', 'rory@hotmail.com', 0),
-(3, 'Jo', 'Lamothe', 'pet', 'pet', 'Petland', 'G1Q1Q9', 'pet@pet.pet', 0);
 
 --
 -- Contraintes pour les tables exportées
 --
 
---
--- Contraintes pour la table `commande`
---
-ALTER TABLE `commande`
-  ADD CONSTRAINT `commande_ibfk_1` FOREIGN KEY (`IDMembre`) REFERENCES `membre` (`IDMembre`) ON DELETE CASCADE ON UPDATE CASCADE;
 
---
--- Contraintes pour la table `ligne`
---
-ALTER TABLE `ligne`
-  ADD CONSTRAINT `ligne_ibfk_1` FOREIGN KEY (`IDCommande`) REFERENCES `commande` (`IDCommande`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `ligne_ibfk_2` FOREIGN KEY (`IDBiere`) REFERENCES `biere` (`IDBiere`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

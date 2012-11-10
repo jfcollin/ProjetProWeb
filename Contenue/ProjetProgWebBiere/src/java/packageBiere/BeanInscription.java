@@ -281,7 +281,6 @@ public class BeanInscription {
             {
             Connection con;
             Statement st;
-            //ResultSet rs = null;
             Class.forName("com.mysql.jdbc.Driver").newInstance();
             con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
             st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
@@ -293,7 +292,7 @@ public class BeanInscription {
             }
             catch(Exception ex)
             {
-                //out.print(ex.toString());
+                m_Erreur = ex.toString();
             }        
         }
         return retour;
@@ -313,7 +312,7 @@ public class BeanInscription {
         Connection con;
         Statement st;
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
         st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
         rs = st.executeQuery("Select * from bieresfoufoufou.membre");
         while(bValide==true)

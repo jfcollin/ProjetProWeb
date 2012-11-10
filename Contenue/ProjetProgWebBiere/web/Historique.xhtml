@@ -1,7 +1,8 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
     <h:head>
         <link rel="stylesheet" type="text/css" href="style.css" />
         <title>Bière fou fou fou</title>
@@ -39,7 +40,55 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
-                    Historique
+                    <h1>Historique des commandes</h1>
+                    <br/>
+                    <h:dataTable value="#{beanBieres.m_Commandemem}" var="Commandes" border="1" headerClass="titretableau" columnClasses="colonnetableau, colonnedroite,colonnedroite,colonnedroite,colonnedroite">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="# Commande"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Commandes.iDCommande}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Sous Total ($)"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Commandes.coutTotal}">
+                            <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="TPS ($)"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Commandes.tPS}">
+                            <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="TVQ ($)"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Commandes.tVQ}">
+                                <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Total ($)"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Commandes.total}">
+                                <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
+                            </h:outputText>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="Date"></h:outputText>
+                            </f:facet>
+                            <h:outputText value="#{Commandes.dateheure}">
+                                </h:outputText>
+                        </h:column>
+                    </h:dataTable>
                 </div>
                 <div id="content_bottom"></div>
 
