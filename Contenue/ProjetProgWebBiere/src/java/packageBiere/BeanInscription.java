@@ -283,7 +283,7 @@ public class BeanInscription {
             Statement st;
             //ResultSet rs = null;
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+            con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
             st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
             String RequeteSQL= "INSERT INTO bieresfoufoufou.membre(Nom,Prenom,NomUtilisateur,MotPasse,Ville,CodePostal,Courriel) values ('" +Nom+"','"+Prenom+"','"+UserName+"','"+MotdePasse+"','"+Ville+"','"+CodePostale+"','"+Courriel+"')";
 

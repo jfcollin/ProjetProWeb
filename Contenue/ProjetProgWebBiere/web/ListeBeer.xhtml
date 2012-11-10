@@ -81,8 +81,12 @@
                             <h:inputText maxlength="2" value="#{Bieres.nbcommande}"/>                            
                         </h:column>
                     </h:dataTable>
+                    <br/>
+                    <h:outputText id ="outputerreurcom" value="#{beanBieres.m_Erreur}"/>
+                    <br/>
                     <h:commandButton id="btnCommande" value="Commander" action="#{beanBieres.passercommande}"/>
-               </h:form>
+                    
+                </h:form>
                 </div>
                 <div id="content_bottom"></div>
 

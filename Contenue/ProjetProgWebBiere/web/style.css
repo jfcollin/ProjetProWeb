@@ -290,3 +290,11 @@ p {text-align: left;}
     text-align:right;
     color:#8D92A4
 }
+#container #content #content_main .colonneprix
+{
+    text-align:right;
+}
+h1
+{
+    text-align:center;    
+}
