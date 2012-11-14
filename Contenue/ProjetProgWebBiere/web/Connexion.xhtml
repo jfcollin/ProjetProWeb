@@ -28,13 +28,19 @@
                     <h:form>
                     <h:panelGrid columns="1" cellspacing="5">
                         <h:outputText value="Nom d'utilisateur : "/>
-                        <h:inputText size="15" required="true" requiredMessage="Nom d'utilisateur obligatoire"/>
+                        <h:inputText id="inuser" size="15" required="true" requiredMessage="Nom d'utilisateur obligatoire" value="#{beanInscription.userName}"/>
+                        <h:message for="inuser" style="color:red" />
+                        
                         <h:outputText value="Mot de passe : "/>
-                        <h:inputSecret size="15" required="true" requiredMessage="Mot de passe obligatoire"/>
+                        <h:inputSecret id="inmdp" size="15" required="true" requiredMessage="Mot de passe obligatoire" value="#{beanInscription.motdePasse}"/>
+                        <h:message for="inmdp" style="color:red" />
+                        
                         <h:panelGroup>
-                            <h:commandButton id="btnLogin" value="Se connecter" action="AdminListeBeer.xhtml"/>
+                            <h:commandButton id="btnLogin" value="Se connecter" action="#{beanInscription.connexion}"/>
                         </h:panelGroup>
-                    </h:panelGrid>
+                        </h:panelGrid>
+                        <h:outputText id ="outputerreur" value="#{beanInscription.m_Erreur}"/>
+                    
                     </h:form>
                 </div>
                 <div id="content_bottom"></div>

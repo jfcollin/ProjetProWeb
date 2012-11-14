@@ -7,6 +7,7 @@ package packageBiere;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.text.DateFormat;
@@ -16,6 +17,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import java.util.Date;
+import javax.faces.context.FacesContext;
 
 /**
  *
@@ -47,25 +49,27 @@ public class BeanBieres {
         tBieres = new ArrayList();
          try
         {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+            PreparedStatement pst=null;
+            ResultSet rs = null;
+            String Requete = "Select * from bieresfoufoufou.biere";
+            pst = con.prepareStatement(Requete, 1005, 1008);
+            pst.clearParameters();
+            rs = pst.executeQuery();
+            
         
-        ResultSet rs = null;
-        Connection con;
-        Statement st;
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
-        st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        rs = st.executeQuery("Select * from bieresfoufoufou.biere");
-        while(bValide==true)
-            {
-               bValide = rs.next();
-               if(bValide==true)
-                    {
-                        tBieres.add(new packageBiere.Bieres(rs.getInt("IDBiere"), rs.getString("NomBiere"), 
-                                    rs.getInt("NombreCaisse"), rs.getInt("Format"), 
-                                    rs.getInt("NombreParCaisse"), rs.getDouble("Prix")));
-                    }
-             }
-        }
+            while(bValide==true)
+                {
+                   bValide = rs.next();
+                   if(bValide==true)
+                        {
+                            tBieres.add(new packageBiere.Bieres(rs.getInt("IDBiere"), rs.getString("NomBiere"), 
+                                        rs.getInt("NombreCaisse"), rs.getInt("Format"), 
+                                        rs.getInt("NombreParCaisse"), rs.getDouble("Prix")));
+                        }
+                 }
+            }
         catch(Exception ex)
         {
             //out.print(ex.toString());
@@ -88,16 +92,18 @@ public class BeanBieres {
         
         Boolean bValide=true;
         tCommandes = new ArrayList();
+        String erreur="";
          try
         {
-        
-        ResultSet rs = null;
-        Connection con;
-        Statement st;
-        Class.forName("com.mysql.jdbc.Driver").newInstance();
-        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
-        st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        rs = st.executeQuery("Select * from bieresfoufoufou.commande");
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+            PreparedStatement pst=null;
+            ResultSet rs = null;
+            String Requete = "Select * from bieresfoufoufou.commande";
+            pst = con.prepareStatement(Requete, 1005, 1008);
+            pst.clearParameters();
+            rs = pst.executeQuery();
+           
         while(bValide==true)
             {
                bValide = rs.next();
@@ -111,7 +117,7 @@ public class BeanBieres {
         }
         catch(Exception ex)
         {
-            //out.print(ex.toString());
+            erreur = ex.toString();
         }
         return tCommandes;
     }
@@ -179,22 +185,36 @@ public class BeanBieres {
         int insertedKeyValue=0;
         String Erreur="";
         int nbCaisse=0;
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	   //get current date time with Date()
 	   Date date = new Date();
 	   
            
                try
             {
-                
-                Connection con;
-                Statement st;
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
-                con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
-                st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-                String RequeteSQL= "INSERT INTO bieresfoufoufou.commande(IDMembre, CoutTotal, TPS, TVQ, datecom) values ('1','"+getCout()+"','"+getTps()+"','"+getTvq()+"','"+ dateFormat.format(date) +"')";
-                st.executeUpdate(RequeteSQL, Statement.RETURN_GENERATED_KEYS);
-                ResultSet rs = st.getGeneratedKeys();
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                PreparedStatement pst=null;
+                ResultSet rs = null;
+                String Requete = "INSERT INTO bieresfoufoufou.commande(IDMembre, CoutTotal, TPS, TVQ, datecom) values (?,?,?,?,?)";
+                String Params[] = new String[5];// parce que tout les parameters sont des String...
+                    Params[0] = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idmem").toString();
+                    Params[1] = Double.toString(getCout()) ;
+                    Params[2] = Double.toString(getTps());
+                    Params[3] = Double.toString(getTvq());
+                    Params[4] = dateFormat.format(date);
+
+                pst = con.prepareStatement(Requete, 1005, 1008);
+                pst.clearParameters();
+                
+                for (int i=0; i < Params.length;i++)
+                {
+                    pst.setString(i+1, Params[i]);
+                }
+                
+                pst.executeUpdate();
+                rs = pst.getGeneratedKeys();
+                
                 if (rs.next())
                 {
                     insertedKeyValue = rs.getInt(1);
@@ -212,13 +232,25 @@ public class BeanBieres {
                 Ligne ligneTemp = (Ligne)m_Lignes.get(i);
                 try
                 {
-                Connection con2;
-                Statement st2;
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
-                con2 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
-                st2 = con2.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-                String RequeteSQL= "INSERT INTO bieresfoufoufou.ligne(IDCommande, IDBiere, NbCaisse) values ('"+ insertedKeyValue +"','"+ligneTemp.getIdbiere()+"','"+ligneTemp.getNbcaisse()+"')";
-                st2.executeUpdate(RequeteSQL, Statement.RETURN_GENERATED_KEYS);            
+                Connection con2 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                PreparedStatement pst2=null;
+                String Requete2 = "INSERT INTO bieresfoufoufou.ligne(IDCommande, IDBiere, NbCaisse) values (?,?,?)";
+                String Params2[] = new String[3];// parce que tout les parameters sont des String...
+                    Params2[0] = Integer.toString(insertedKeyValue);
+                    Params2[1] = Integer.toString(ligneTemp.getIdbiere()) ;
+                    Params2[2] = Integer.toString(ligneTemp.getIdbiere());
+                    
+
+                pst2 = con2.prepareStatement(Requete2, 1005, 1008);
+                pst2.clearParameters();
+                
+                for (int j=0; j < Params2.length;j++)
+                {
+                    pst2.setString(j+1, Params2[j]);
+                }
+                
+                pst2.executeUpdate();
                 con2.close();
                 }
                 catch(Exception ex)
@@ -227,26 +259,44 @@ public class BeanBieres {
                 }
                 try
                 {
-                Connection con3;
-                Statement st3;
-                ResultSet rs = null;
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-                con3 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
-                st3 = con3.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-                rs = st3.executeQuery("Select NombreCaisse from bieresfoufoufou.biere where IDBiere='" + ligneTemp.getIdbiere() + "';");            
-                rs.next();
-                nbCaisse = rs.getInt("NombreCaisse") - ligneTemp.getNbcaisse();
+                  Class.forName("com.mysql.jdbc.Driver").newInstance();
+                    Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                    PreparedStatement pst3=null;
+                    ResultSet rs3 = null;
+                    String Requete3 = "Select NombreCaisse from bieresfoufoufou.biere where IDBiere=?";
+                    String Params3 = Integer.toString(ligneTemp.getIdbiere());
+                    
+                    
+
+                pst3 = con3.prepareStatement(Requete3, 1005, 1008);
+                pst3.clearParameters();
+                pst3.setString(1, Params3);
+                rs3 = pst3.executeQuery();               
+                rs3.next();
+                nbCaisse = rs3.getInt("NombreCaisse") - ligneTemp.getNbcaisse();
                 con3.close();
                 
-                Connection con4;
-                Statement st4;
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-                con4 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
-                st4 = con4.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-                String RequeteSQL;
-                RequeteSQL = "UPDATE bieresfoufoufou.biere SET NombreCaisse=" + Integer.toString(nbCaisse) + " where IDBiere='" + Integer.toString(ligneTemp.getIdbiere()) + "';";
-                st4.executeUpdate(RequeteSQL);            
-                con4.close();
+                
+               Class.forName("com.mysql.jdbc.Driver").newInstance();
+                Connection con4 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                PreparedStatement pst4=null;
+                String Requete4 = "UPDATE bieresfoufoufou.biere SET NombreCaisse=? where IDBiere=?";
+                String Params4[] = new String[2];// parce que tout les parameters sont des String...
+                    Params4[0] = Integer.toString(nbCaisse);
+                    Params4[1] = Integer.toString(ligneTemp.getIdbiere()) ;
+                    
+
+                pst4 = con4.prepareStatement(Requete4, 1005, 1008);
+                pst4.clearParameters();
+                
+                for (int k=0; k < Params4.length;k++)
+                {
+                    pst4.setString(k+1, Params4[k]);
+                }
+                
+                pst4.executeUpdate();
+                
+                con4.close();          
                 Retour ="Historique.xhtml";
                 tBieres.clear();
                 m_Lignes.clear();
@@ -355,14 +405,19 @@ public class BeanBieres {
         m_Commandemem = new ArrayList();
          try
         {
-        
-        ResultSet rs = null;
-        Connection con;
-        Statement st;
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-        con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "toor");
-        st = con.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE,ResultSet.CONCUR_UPDATABLE);
-        rs = st.executeQuery("Select * from bieresfoufoufou.commande where IDMembre='1'");
+                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                    PreparedStatement pst=null;
+                    ResultSet rs = null;
+                    String Requete = "Select * from bieresfoufoufou.commande where IDMembre=?";
+                    String Params3 = FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("idmem").toString();
+                    
+                    
+
+                pst = con.prepareStatement(Requete, 1005, 1008);
+                pst.clearParameters();
+                pst.setString(1, Params3);
+                rs = pst.executeQuery();
         while(bValide==true)
             {
                bValide = rs.next();
