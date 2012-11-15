@@ -36,13 +36,31 @@ public class BeanBieres {
     private double couttotal=0;
     private String m_Erreur="";
     private ArrayList m_Commandemem;
+    private String motpassebd="";
+    private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
+    private String userbd = "root";
 
     /**
      * Creates a new instance of BeanMembres
      */
     public BeanBieres() {
     }
-        
+    
+    private Connection sconnection ()
+    {
+        Connection con=null;
+        try
+        {
+            con = DriverManager.getConnection(stringconnection, userbd, motpassebd);
+        }
+        catch (Exception ex)
+        {
+             
+        }
+      
+        return con;
+    }
+    
     public ArrayList gettBieres() 
     {
         Boolean bValide=true;
@@ -50,7 +68,8 @@ public class BeanBieres {
          try
         {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+            Connection con = sconnection();
+            
             PreparedStatement pst=null;
             ResultSet rs = null;
             String Requete = "Select * from bieresfoufoufou.biere";
@@ -96,7 +115,7 @@ public class BeanBieres {
          try
         {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+            Connection con = sconnection();
             PreparedStatement pst=null;
             ResultSet rs = null;
             String Requete = "Select * from bieresfoufoufou.commande";
@@ -193,7 +212,7 @@ public class BeanBieres {
                try
             {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                Connection con = sconnection();
                 PreparedStatement pst=null;
                 ResultSet rs = null;
                 String Requete = "INSERT INTO bieresfoufoufou.commande(IDMembre, CoutTotal, TPS, TVQ, datecom) values (?,?,?,?,?)";
@@ -233,7 +252,7 @@ public class BeanBieres {
                 try
                 {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
-                Connection con2 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                Connection con2 = sconnection();
                 PreparedStatement pst2=null;
                 String Requete2 = "INSERT INTO bieresfoufoufou.ligne(IDCommande, IDBiere, NbCaisse) values (?,?,?)";
                 String Params2[] = new String[3];// parce que tout les parameters sont des String...
@@ -260,7 +279,7 @@ public class BeanBieres {
                 try
                 {
                   Class.forName("com.mysql.jdbc.Driver").newInstance();
-                    Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                    Connection con3 = sconnection();
                     PreparedStatement pst3=null;
                     ResultSet rs3 = null;
                     String Requete3 = "Select NombreCaisse from bieresfoufoufou.biere where IDBiere=?";
@@ -278,7 +297,7 @@ public class BeanBieres {
                 
                 
                Class.forName("com.mysql.jdbc.Driver").newInstance();
-                Connection con4 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                Connection con4 = sconnection();
                 PreparedStatement pst4=null;
                 String Requete4 = "UPDATE bieresfoufoufou.biere SET NombreCaisse=? where IDBiere=?";
                 String Params4[] = new String[2];// parce que tout les parameters sont des String...
@@ -406,7 +425,7 @@ public class BeanBieres {
          try
         {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-                    Connection con = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+                    Connection con = sconnection();
                     PreparedStatement pst=null;
                     ResultSet rs = null;
                     String Requete = "Select * from bieresfoufoufou.commande where IDMembre=?";

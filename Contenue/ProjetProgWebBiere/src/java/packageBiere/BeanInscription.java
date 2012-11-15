@@ -37,9 +37,29 @@ public class BeanInscription {
     private String Courriel = "";
     private String m_Erreur;
     private ArrayList tMembres;
+    //Information pour la bd
+    private String motpassebd="toor";
+    private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
+    private String userbd = "root";
+    private Connection m_con;
     
     
     public BeanInscription() {
+    }
+    
+    private Connection sconnection ()
+    {
+        
+        try
+        {
+            m_con = DriverManager.getConnection(stringconnection, userbd, motpassebd);
+        }
+        catch (Exception ex)
+        {
+             
+        }
+      
+        return m_con;
     }
 
     /**
@@ -274,6 +294,7 @@ public class BeanInscription {
         Boolean bValide=true;
         int i=0;
         String retour = "";
+        String valideuser="";
         if (!MotdePasse.equals(ConfMotdePasse))
         {
             m_Erreur = ("*Mot de passe différent de celui inscrit");
@@ -282,32 +303,43 @@ public class BeanInscription {
         {
             try
             {
-                Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
             PreparedStatement pst3=null;
             ResultSet rs3 = null;
-            String Requete3 = "Select * from bieresfoufoufou.membre";
-                                        
+            String Requete3 = "Select NomUtilisateur from bieresfoufoufou.membre where NomUtilisateur=?";
+            String Param = UserName;                    
                     
 
-            pst3 = con3.prepareStatement(Requete3, 1005, 1008);
+            pst3 = sconnection().prepareStatement(Requete3, 1005, 1008);
             pst3.clearParameters();
+            pst3.setString(1, Param);
             rs3 = pst3.executeQuery(); 
             while(bValide==true)
             {
                bValide = rs3.next();
-               i++;
+               try
+               {
+               valideuser = rs3.getString("NomUtilisateur");
+               if (UserName.equals(valideuser))
+               {
+                    bValide = false;
+                    i++;
+               }
+               }
+               catch (Exception ex)
+               {
+                  i=0 ;        
+               }
             }
-            con3.close();
+            sconnection().close();
             
                 if (i>0)
                 {
-                    m_Erreur = "*Nom d'utilisateur non valide";
+                    m_Erreur = "*Nom d'utilisateur déjà utilisé";
                 }
                 else
                 {
                 Class.forName("com.mysql.jdbc.Driver").newInstance();
-                Connection con4 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
                 PreparedStatement pst4=null;
                 String Requete4 = "INSERT INTO bieresfoufoufou.membre(Nom,Prenom,NomUtilisateur,MotPasse,Ville,CodePostal,Courriel) values (?,?,?,?,?,?,?)";
                 String Params4[] = new String[7];// parce que tout les parameters sont des String...
@@ -320,7 +352,7 @@ public class BeanInscription {
                     Params4[6] = Courriel;
                     
 
-                pst4 = con4.prepareStatement(Requete4, 1005, 1008);
+                pst4 = sconnection().prepareStatement(Requete4, 1005, 1008);
                 pst4.clearParameters();
                 
                 for (int k=0; k < Params4.length;k++)
@@ -330,7 +362,8 @@ public class BeanInscription {
                 
                 pst4.executeUpdate();
                 
-                con4.close(); 
+                sconnection().close(); 
+                m_Erreur ="";
                 retour = "index.xhtml";
                 }
                 }
@@ -352,14 +385,13 @@ public class BeanInscription {
         try
         {
             Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
             PreparedStatement pst3=null;
             ResultSet rs3 = null;
             String Requete3 = "Select * from bieresfoufoufou.membre";
                                         
                     
 
-            pst3 = con3.prepareStatement(Requete3, 1005, 1008);
+            pst3 = sconnection().prepareStatement(Requete3, 1005, 1008);
             pst3.clearParameters();
             rs3 = pst3.executeQuery(); 
         while(bValide==true)
@@ -367,14 +399,17 @@ public class BeanInscription {
                bValide = rs3.next();
                if(bValide==true)
                     {
-                        tMembres.add(new packageBiere.Membre(rs3.getInt("IDMembre"), 
-                                    rs3.getString("NomUtilisateur"), rs3.getString("Nom"), 
-                                    rs3.getString("Prenom"), rs3.getString("MotPasse"),
-                                    rs3.getString("MotPasse"), rs3.getString("Ville"),
-                                    rs3.getString("CodePostal"), rs3.getString("Courriel")));
+                        if (!rs3.getBoolean("Admin"))
+                        {
+                            tMembres.add(new packageBiere.Membre(rs3.getInt("IDMembre"), 
+                                        rs3.getString("NomUtilisateur"), rs3.getString("Nom"), 
+                                        rs3.getString("Prenom"), rs3.getString("MotPasse"),
+                                        rs3.getString("MotPasse"), rs3.getString("Ville"),
+                                        rs3.getString("CodePostal"), rs3.getString("Courriel")));
+                        }
                     }
              }
-        con3.close();
+        sconnection().close();
         }
         
         catch(Exception ex)
@@ -399,7 +434,6 @@ public class BeanInscription {
         try
         {
         Class.forName("com.mysql.jdbc.Driver").newInstance();
-            Connection con3 = DriverManager.getConnection("jdbc:mysql://localhost/bieresfoufoufou", "root", "");
             PreparedStatement pst3=null;
             ResultSet rs3 = null;
             String Requete3 = "Select * from bieresfoufoufou.membre where NomUtilisateur=? AND MotPasse=?";
@@ -407,7 +441,7 @@ public class BeanInscription {
                     Params4[0] = UserName;
                     Params4[1] = MotdePasse;
             
-            pst3 = con3.prepareStatement(Requete3, 1005, 1008);
+            pst3 = sconnection().prepareStatement(Requete3, 1005, 1008);
                       
             pst3.clearParameters();
             
@@ -433,6 +467,7 @@ public class BeanInscription {
             {
                 retour = "ListeBeer.xhtml";
             }
+            sconnection().close();
         }
         catch(Exception ex)
         {
