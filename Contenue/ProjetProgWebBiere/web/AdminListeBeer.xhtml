@@ -39,40 +39,71 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
-                    <h:dataTable value="#{beanBieres.tBieres}" var="Bieres" cellpadding="5" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Nom"></h:outputText>
-                            </f:facet>
-                            <h:outputText value="#{Bieres.nom}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Nombre de caisse disponible"></h:outputText>
-                            </f:facet>
-                            <h:outputText value="#{Bieres.nombrecaisses}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Format"></h:outputText>
-                            </f:facet>
-                            <h:outputText value="#{Bieres.format} ml"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Nombre par caisse"></h:outputText>
-                            </f:facet>
-                            <h:outputText value="#{Bieres.nombreparcaisse}"/>
-                        </h:column>
-                        <h:column>
-                            <f:facet name="header">
-                                <h:outputText value="Prix ($)"></h:outputText>
-                            </f:facet>
-                            <h:outputText value="#{Bieres.prix}">
-                                <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
-                            </h:outputText>
-                        </h:column>
-                    </h:dataTable>
+                    <h:form>
+                        <h:dataTable value="#{beanBieres.tBieres}" var="Bieres" cellpadding="5" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnedroite,colonnetableau,colonnedroite">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nom"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{Bieres.nom}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre de caisse disponible"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{Bieres.nombrecaisses}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Format"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{Bieres.format} ml"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre par caisse"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{Bieres.nombreparcaisse}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Prix ($)"></h:outputText>
+                                </f:facet>
+                                <h:outputText value="#{Bieres.prix}">
+                                    <f:convertNumber minFractionDigits="2" type="currency" currencySymbol="$"/>
+                                </h:outputText>
+                            </h:column>
+                             <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nouveau nb de caisse"></h:outputText>
+                                </f:facet>
+                                <h:inputText maxlength="2" value="#{Bieres.nouvnbcaisses}"/>                            
+                            </h:column>
+                             <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nouveau Prix"></h:outputText>
+                                </f:facet>
+                                <h:inputText maxlength="5" value="#{Bieres.nouvprix}"/>                            
+                            </h:column>
+                        </h:dataTable>
+                        <h:commandButton id="btnModifier" value="Modifier" action="#{beanBieres.updateListeBiere}"/>
+                    <h:panelGrid columns="4" cellpadding="0" cellspacing="5">
+                            <h:outputText value="Nom:"></h:outputText>   
+                            <h:inputText maxlength="20" value="#{beanBieres.nouvnom}"/>
+                            <h:outputText value="Nombre de caisse disponible:"></h:outputText>
+                            <h:inputText maxlength="3" value="#{beanBieres.nouvnombrecaisses}"/>
+                            
+                            <h:outputText value="Format:"></h:outputText> 
+                            <h:inputText maxlength="3" value="#{beanBieres.nouvformat}"/>
+                            <h:outputText value="Nombre par caisse:"></h:outputText>
+                            <h:inputText maxlength="2" value="#{beanBieres.nouvnombreparcaisse}"/>
+                            
+                            <h:outputText value="Prix ($):"></h:outputText>
+                            <h:inputText maxlength="5" value="#{beanBieres.nouvprix}"/>
+                            <h:outputText value=""/>
+                            <h:commandButton id="btnAjouter" value="Ajouter" action="#{beanBieres.creeNouvBiere}"/>
+                   </h:panelGrid>
+                  </h:form>
                 </div>
                 <div id="content_bottom"></div>
 

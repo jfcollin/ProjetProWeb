@@ -16,6 +16,8 @@ public class Bieres {
     private int nombreparcaisse;
     private double prix;
     private int nbcommande;
+    private int nouvnbcaisses;
+    private double nouvprix;
 
     /**
      * Constructeur
@@ -29,6 +31,8 @@ public class Bieres {
         nombreparcaisse = npc;
         prix = p;
         nbcommande=0;
+        nouvnbcaisses=0;
+        nouvprix=0;
     }
     
     /**
@@ -133,6 +137,34 @@ public class Bieres {
      */
     public void setIdbiere(int idbiere) {
         this.idbiere = idbiere;
+    }
+
+    /**
+     * @return the nouvnbcaisses
+     */
+    public int getNouvnbcaisses() {
+        return nouvnbcaisses;
+    }
+
+    /**
+     * @param nouvnbcaisses the nouvnbcaisses to set
+     */
+    public void setNouvnbcaisses(int nouvnbcaisses) {
+        this.nouvnbcaisses = nouvnbcaisses;
+    }
+
+    /**
+     * @return the nouvprix
+     */
+    public double getNouvprix() {
+        return nouvprix;
+    }
+
+    /**
+     * @param nouvprix the nouvprix to set
+     */
+    public void setNouvprix(double nouvprix) {
+        this.nouvprix = nouvprix;
     }
     
 }

@@ -39,6 +39,11 @@ public class BeanBieres {
     private String motpassebd="";
     private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
     private String userbd = "root";
+    private String nouvnom;
+    private int nouvnombrecaisses;
+    private int nouvformat;
+    private int nouvnombreparcaisse;
+    private double nouvprix;
 
     /**
      * Creates a new instance of BeanMembres
@@ -461,6 +466,131 @@ public class BeanBieres {
      */
     public void setM_Commandemem(ArrayList m_Commandemem) {
         this.m_Commandemem = m_Commandemem;
+    }
+    
+    public void updateListeBiere()
+    {
+        int nbbieres;
+        double prixbieres;
+        
+        for(int m=0;m<tBieres.size();m++)
+        {
+                Bieres beer = (Bieres)tBieres.get(m);
+                nbbieres = beer.getNouvnbcaisses();
+                prixbieres = beer.getNouvprix();
+                
+                if(nbbieres != 0)
+                {
+                    beer.setNombrecaisses(beer.getNouvnbcaisses());
+                }
+                
+                if(prixbieres != 0)
+                {
+                    beer.setPrix(beer.getNouvprix());
+                }
+                try
+                {
+                    Class.forName("com.mysql.jdbc.Driver").newInstance();
+                    Connection con5 = sconnection();
+                    PreparedStatement pst5=null;
+                    String Requete5 = "UPDATE bieresfoufoufou.biere SET NombreCaisse=?, Prix=? where IDBiere=?";
+                    String Params5[] = new String[3];// parce que tout les parameters sont des String...
+                        Params5[0] = Integer.toString(beer.getNombrecaisses());
+                        Params5[1] = Double.toString(beer.getPrix());
+                        Params5[2] = Integer.toString(beer.getIdbiere()) ;
+
+                    pst5 = con5.prepareStatement(Requete5, 1005, 1008);
+                    pst5.clearParameters();
+
+                    for (int k=0; k < Params5.length;k++)
+                    {
+                        pst5.setString(k+1, Params5[k]);
+                    }
+
+                    pst5.executeUpdate();
+
+                    con5.close(); 
+                }
+                catch(Exception ex)
+                {
+                    ex.toString();     
+                }
+        }
+    }
+    
+    public void creeNouvBiere()
+    {
+        
+    }
+
+    /**
+     * @return the nouvnom
+     */
+    public String getNouvnom() {
+        return nouvnom;
+    }
+
+    /**
+     * @param nouvnom the nouvnom to set
+     */
+    public void setNouvnom(String nouvnom) {
+        this.nouvnom = nouvnom;
+    }
+
+    /**
+     * @return the nouvnombrecaisses
+     */
+    public int getNouvnombrecaisses() {
+        return nouvnombrecaisses;
+    }
+
+    /**
+     * @param nouvnombrecaisses the nouvnombrecaisses to set
+     */
+    public void setNouvnombrecaisses(int nouvnombrecaisses) {
+        this.nouvnombrecaisses = nouvnombrecaisses;
+    }
+
+    /**
+     * @return the nouvformat
+     */
+    public int getNouvformat() {
+        return nouvformat;
+    }
+
+    /**
+     * @param nouvformat the nouvformat to set
+     */
+    public void setNouvformat(int nouvformat) {
+        this.nouvformat = nouvformat;
+    }
+
+    /**
+     * @return the nouvnombreparcaisse
+     */
+    public int getNouvnombreparcaisse() {
+        return nouvnombreparcaisse;
+    }
+
+    /**
+     * @param nouvnombreparcaisse the nouvnombreparcaisse to set
+     */
+    public void setNouvnombreparcaisse(int nouvnombreparcaisse) {
+        this.nouvnombreparcaisse = nouvnombreparcaisse;
+    }
+
+    /**
+     * @return the nouvprix
+     */
+    public double getNouvprix() {
+        return nouvprix;
+    }
+
+    /**
+     * @param nouvprix the nouvprix to set
+     */
+    public void setNouvprix(double nouvprix) {
+        this.nouvprix = nouvprix;
     }
 
 
