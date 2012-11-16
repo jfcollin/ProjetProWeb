@@ -39,19 +39,7 @@
                 <div id="content_top"></div>
                 <div id="content_main">
                     <h:form> 
-                        <h1>Envoyer un communiqué</h1>
-                        <h:panelGrid border="1" columns="1" cellpadding="0" cellspacing="5">
-                            <h:outputText id="txtsujet" value="Sujet : "/>
-                            <h:inputText id="insujet" size="20" required="true" requiredMessage="Sujet obligatoire" value="#{beanMessage.m_Sujet}"/>
-                            <h:message for="insujet" style="color:red" />
-                            
-                            <h:outputText id="txtmessage" value="Message : "/>
-                            <h:inputTextarea id="inamessage" rows="15" cols="20" required="true" requiredMessage="Message obligatoire" value="#{beanMessage.m_Message}"/>
-                            <h:message for="inamessage" style="color:red" />
-                            
-                            <h:commandButton id="btnCommunique" value="Envoyer" action="#{beanMessage.envoyercommunique}"/>
-                        </h:panelGrid>
-                        <h:outputText id ="outputerreur" value="#{beanMessage.m_Confirmation}"/>
+                        Votre message a bien été transmis.
                     </h:form>
                 </div>
                 <div id="content_bottom"></div>
