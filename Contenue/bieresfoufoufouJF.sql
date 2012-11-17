@@ -86,7 +86,8 @@ CREATE TABLE IF NOT EXISTS `membre` (
 INSERT INTO `membre` (`IDMembre`, `Prenom`, `Nom`, `NomUtilisateur`, `MotPasse`, `Ville`, `CodePostal`, `Courriel`, `Admin`) VALUES
 (1, 'Admn', 'Nistrateur', 'admin', 'admin123', 'Springfield', 'G1Q1Q9', 'admin@hotmail.com', 1),
 (2, 'Rory', 'B. Bellows', 'RoryB', 'rory1234', 'Springfield', 'G4G4G4', 'rory@hotmail.com', 0),
-(3, 'Jo', 'Lamothe', 'pet', 'pet', 'Petland', 'G1Q1Q9', 'pet@pet.pet', 0);
+(3, 'Jo', 'Lamothe', 'pet', 'pet', 'Petland', 'G1Q1Q9', 'pet@pet.pet', 0),
+(9, 'Jung', 'Joe', 'pow', 'pow', 'Petland', 'G1Q1Q9', 'pet@pet.pet', 0);
 -- --------------------------------------------------------
 
 --

@@ -39,6 +39,8 @@
             <div id="content">
                 <div id="content_top"></div>
                 <div id="content_main">
+                    
+                    <h:form>
                     <h:dataTable cellpadding="5" value="#{beanInscription.tMembres}" var="Membre" headerClass="titretableau" columnClasses="colonnetableau, colonnetableau,colonnetableau,colonnetableau,colonnetableau,colonnetableau,colonnetableau">
                         <h:column>
                             <f:facet name="header">
@@ -83,6 +85,16 @@
                             <h:outputText value="#{Membre.courriel}"/>
                         </h:column>
                     </h:dataTable>
+                    
+                    <h:panelGrid columns="1" cellspacing="5">
+                        <h:outputText value="Membre à supprimé : "/>
+                        <h:outputText value= " "/>
+                        <h:selectOneMenu value="#{beanInscription.pseudosup}">
+                            <f:selectItems value="#{beanInscription.pseudo}"/>                                
+                        </h:selectOneMenu>
+                        <h:commandButton id="btnSupprimer" value="Supprimer" action="#{beanInscription.suppprimermembre}"/>
+                    </h:panelGrid>
+                        </h:form>
                 </div>
                 <div id="content_bottom"></div>
 

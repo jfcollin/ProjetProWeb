@@ -36,7 +36,7 @@ public class BeanBieres {
     private double couttotal=0;
     private String m_Erreur="";
     private ArrayList m_Commandemem;
-    private String motpassebd="";
+    private String motpassebd="toor";
     private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
     private String userbd = "root";
     private String nouvnom;

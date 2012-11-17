@@ -21,6 +21,11 @@ public class BeanInscription {
     /**
      * Creates a new instance of BeanInscription
      */
+    //Information pour la bd
+    private String motpassebd="toor";
+    private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
+    private String userbd = "root";
+    private Connection m_con;
     private String [] jourvaleur = new String[31];
     private String jour="1";
     private String [] moisvaleur = new String[12];
@@ -37,11 +42,10 @@ public class BeanInscription {
     private String Courriel = "";
     private String m_Erreur;
     private ArrayList tMembres;
-    //Information pour la bd
-    private String motpassebd="";
-    private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
-    private String userbd = "root";
-    private Connection m_con;
+    private String [] pseudo = new String [nbmembre ()];
+    private String pseudosup = pseudo[0];
+    
+    
     
     
     public BeanInscription() {
@@ -60,6 +64,36 @@ public class BeanInscription {
         }
       
         return m_con;
+    }
+    
+    private Integer nbmembre ()
+    {
+        Boolean bValide=true;
+        int nombre=0;
+        String erreur ="";
+        try
+        {
+            Class.forName("com.mysql.jdbc.Driver").newInstance();
+            PreparedStatement pst3=null;
+            ResultSet rs3 = null;
+            String Requete3 = "Select COUNT(idmembre) from bieresfoufoufou.membre";                            
+
+
+            pst3 = sconnection().prepareStatement(Requete3, 1005, 1008);
+            pst3.clearParameters();
+            rs3 = pst3.executeQuery(); 
+            bValide = rs3.next();
+               nombre = rs3.getInt(1);
+
+            
+            sconnection().close();
+        }
+        catch (Exception ex)
+        {
+            erreur = ex.toString();
+        }
+        
+        return nombre -1;
     }
 
     /**
@@ -477,6 +511,69 @@ public class BeanInscription {
         return retour;
         
     }
+    public String suppprimermembre ()
+    {
+        String retour="";
+        try
+        {
+        Class.forName("com.mysql.jdbc.Driver").newInstance();
+            PreparedStatement pst3=null;
+            String Requete3 = "DELETE from bieresfoufoufou.membre where NomUtilisateur=? ";
+            String Params4= pseudosup;
+            pst3 = sconnection().prepareStatement(Requete3, 1005, 1008);
+                      
+            pst3.clearParameters(); 
+            pst3.setString(1, Params4);
+            pst3.executeUpdate();
+            sconnection().close();
+            retour ="MembreSup.xhtml";
+            pseudo = new String [nbmembre ()];
+            getPseudo();
+            pseudosup = pseudo[0];
+        }
+        catch(Exception ex)
+        {
+            retour ="";
+        }
+        return retour;
+    }
+
+    /**
+     * @return the pseudo
+     */
+    public String[] getPseudo() {
+        Membre membretemp;
+        for (int i=0; i<pseudo.length;i++)
+        {
+            membretemp = (Membre) tMembres.get(i);
+            
+            pseudo[i] = membretemp.getUserName();
+        }
+        
+        return pseudo;
+    }
+
+    /**
+     * @param pseudo the pseudo to set
+     */
+    public void setPseudo(String[] pseudo) {
+        this.pseudo = pseudo;
+    }
+
+    /**
+     * @return the pseudosup
+     */
+    public String getPseudosup() {
+        return pseudosup;
+    }
+
+    /**
+     * @param pseudosup the pseudosup to set
+     */
+    public void setPseudosup(String pseudosup) {
+        this.pseudosup = pseudosup;
+    }
+    
 }
 
 
