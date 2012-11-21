@@ -22,7 +22,7 @@ public class BeanInscription {
      * Creates a new instance of BeanInscription
      */
     //Information pour la bd
-    private String motpassebd="toor";
+    private String motpassebd="";
     private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
     private String userbd = "root";
     private Connection m_con;

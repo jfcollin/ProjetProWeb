@@ -39,7 +39,7 @@ public class BeanMessage {
     private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
     private String userbd = "root";
     private Connection m_con;
-    private String motpassebd="toor";
+    private String motpassebd="";
     /**
      * Creates a new instance of BeanMessage
      */

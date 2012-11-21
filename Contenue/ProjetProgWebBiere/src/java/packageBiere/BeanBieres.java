@@ -36,14 +36,14 @@ public class BeanBieres {
     private double couttotal=0;
     private String m_Erreur="";
     private ArrayList m_Commandemem;
-    private String motpassebd="toor";
+    private String motpassebd="";
     private String stringconnection = "jdbc:mysql://localhost/bieresfoufoufou";
     private String userbd = "root";
-    private String nouvnom;
-    private int nouvnombrecaisses;
-    private int nouvformat;
-    private int nouvnombreparcaisse;
-    private double nouvprix;
+    private String nouvnom="";
+    private int nouvnombrecaisses=0;
+    private int nouvformat=0;
+    private int nouvnombreparcaisse=0;
+    private double nouvprix=0.0;
 
     /**
      * Creates a new instance of BeanMembres
@@ -519,8 +519,46 @@ public class BeanBieres {
     }
     
     public void creeNouvBiere()
-    {
+    {     
+        try
+        {
+            if(nouvformat != 0 && nouvnom != "" && nouvnombrecaisses != 0 && nouvnombreparcaisse != 0 && nouvprix != 0.0)
+            {
+                Class.forName("com.mysql.jdbc.Driver").newInstance();
+                Connection con5 = sconnection();
+                PreparedStatement pst5=null;
+                String Requete5 = "INSERT INTO bieresfoufoufou.biere(NomBiere, NombreCaisse, Format, NombreParCaisse, Prix) values (?,?,?,?,?)";
+                String Params5[] = new String[5];// parce que tout les parameters sont des String...
+                    Params5[0] = nouvnom;
+                    Params5[1] = Integer.toString(nouvnombrecaisses);
+                    Params5[2] = Integer.toString(nouvformat);
+                    Params5[3] = Integer.toString(nouvnombreparcaisse);
+                    Params5[4] = Double.toString(nouvprix);
+
+                pst5 = con5.prepareStatement(Requete5, 1005, 1008);
+                pst5.clearParameters();
+
+                for (int k=0; k < Params5.length;k++)
+                {
+                    pst5.setString(k+1, Params5[k]);
+                }
+
+                pst5.executeUpdate();
+
+                con5.close();
+            }
+
+        }
+        catch(Exception ex)
+        {
+            ex.toString();     
+        }
         
+        nouvnom = "";
+        nouvnombrecaisses = 0;
+        nouvformat = 0;
+        nouvnombreparcaisse = 0;
+        nouvprix = 0;
     }
 
     /**

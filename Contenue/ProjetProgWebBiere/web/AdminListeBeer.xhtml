@@ -83,13 +83,13 @@
                                 <f:facet name="header">
                                     <h:outputText value="Nouveau Prix"></h:outputText>
                                 </f:facet>
-                                <h:inputText maxlength="5" value="#{Bieres.nouvprix}"/>                            
+                                <h:inputText maxlength="6" value="#{Bieres.nouvprix}"/>                            
                             </h:column>
                         </h:dataTable>
                         <h:commandButton id="btnModifier" value="Modifier" action="#{beanBieres.updateListeBiere}"/>
                     <h:panelGrid columns="4" cellpadding="0" cellspacing="5">
                             <h:outputText value="Nom:"></h:outputText>   
-                            <h:inputText maxlength="20" value="#{beanBieres.nouvnom}"/>
+                            <h:inputText maxlength="50" value="#{beanBieres.nouvnom}"/>
                             <h:outputText value="Nombre de caisse disponible:"></h:outputText>
                             <h:inputText maxlength="3" value="#{beanBieres.nouvnombrecaisses}"/>
                             
@@ -99,7 +99,7 @@
                             <h:inputText maxlength="2" value="#{beanBieres.nouvnombreparcaisse}"/>
                             
                             <h:outputText value="Prix ($):"></h:outputText>
-                            <h:inputText maxlength="5" value="#{beanBieres.nouvprix}"/>
+                            <h:inputText maxlength="6" value="#{beanBieres.nouvprix}"/>
                             <h:outputText value=""/>
                             <h:commandButton id="btnAjouter" value="Ajouter" action="#{beanBieres.creeNouvBiere}"/>
                    </h:panelGrid>
